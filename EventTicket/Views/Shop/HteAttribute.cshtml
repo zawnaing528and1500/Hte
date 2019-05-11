@@ -1,0 +1,49 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    Base b = new Base();
+    ViewBag.Title = "HteAttribute";
+    Layout = "~/Views/Shared/Shop.cshtml";
+    int ShopID = Convert.ToInt32(Session["CurrentUserID"]);
+    int CustomerID = Convert.ToInt32(Session["CustomerID"]);
+    DataTable dtHteNumber = new DataTable();
+    int Income = 0;int Count = 0;
+}
+
+
+<div class="contentBodyBox">
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th style="width: 10px"><span class="zg">အမ်ဳိးအစား</span></th>
+            <th> <span class="zg">ဝယ္​​ေစ်း</span></th>
+            <th> <span class="zg">​ေရာင္​း​ေစ်း​</span></th>
+            <th> <span class="zg">လက္​​က်န္​</span></th>
+        </tr>
+        @{
+            dtHteNumber = b.getAllByQuery("select * from HteAttribute where ShopID=" + ShopID);
+            foreach (DataRow rows in dtHteNumber.Rows)
+            {
+                <tr>
+                    <td>
+                        <span class="zg">@b.getStringByQuery("select * from HteType where ID="+ rows["HteTypeID"], "Name")</span>
+                    </td>
+                    <td>
+                        <span class="zg"> @rows["CostPrice"] </span>
+                    </td>
+                    <td>
+                        <span class="zg"> @rows["SellingPrice"] </span>
+                    </td>
+                    <td>
+                        <span class="zg"> @rows["Quantity"] </span>
+                    </td>
+                    <td>
+                        <a href="/Shop/ChangeHteAttribute?HteAttributeID=@rows["ID"]"><img src="~/Image/edit.png" /></a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+        </div>

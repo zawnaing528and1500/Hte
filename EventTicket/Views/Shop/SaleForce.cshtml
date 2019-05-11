@@ -1,0 +1,77 @@
+﻿
+@using EventTicket.App_Code;
+@using System.Data;
+@{
+    ViewBag.Title = "Sale Force";
+    Layout = "~/Views/Shared/Shop.cshtml";
+    DataTable todayStock = new DataTable();
+    DataTable expense = new DataTable();
+    StockBase db = new StockBase();
+    int TotalSale = 0;int Profit = 0;int HteTotal = 0;
+    int ShopID = Convert.ToInt32(Session["CurrentUserID"]);
+}
+
+@using (Html.BeginForm("ProcessSaleForce", "Shop"))
+{
+    <p class="zg">
+        <div class="contentHeadBox">
+            <font color="#8B7D6B" class="zg"><b>​ေရာင္​းအား ၾကည္​့ရန္​ ​</b> ​ေအာက္​ပါတို႔ကို ျဖည္​့ပါ</font><br /><br />
+            <div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" name="FromDate" class="form-control" id="datepicker" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="ToDate" class="form-control" id="Todatepicker" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <center> <span class="zg"><input type="submit" class="btn btn-primary" value="ၾကည္​့မည္" /></span></center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <font color="#8B7D6B" class="zg"> သင္​​​့လုပ္​ငန္​း၏ ​ေရာင္​းအားမ်ား ျဖစ္​သည္​။</font><br /><br />
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th><span class="zg">အ​ေစာင္​​ေရ</span></th>
+                            <th><span class="zg">Total Sale(အရင္​း)</span></th>
+                            <th><span class="zg">Total Profit</span></th>
+                        </tr>
+                        @{
+
+                            if (ViewBag.FromDate != null)
+                            {
+                                DataTable sale = db.getAllByQuery("select * from HteNumber where ShopID=" + ShopID + " and Date>='" + ViewBag.FromDate + "' and Date<='" + ViewBag.ToDate + "'");
+                                foreach (DataRow rows in sale.Rows)
+                                {
+                                    HteTotal++;
+                                    TotalSale = TotalSale + Convert.ToInt32(rows["CostPrice"]);
+                                    Profit = Profit + Convert.ToInt32(rows["Profit"]);
+                                }
+                            }
+                        }
+                        <tr><td><b>@HteTotal</b></td><td><b>@TotalSale</b> Kyats</td><td colspan="2"><b>@Profit</b> Kyats</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </p>
+                            }

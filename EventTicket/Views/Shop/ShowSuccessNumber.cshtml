@@ -5,19 +5,21 @@
     DataTable dtSuccessHteNumber = new DataTable();
     dtSuccessHteNumber = b.getAllByQuery("select * from Success");
     ViewBag.Title = "ShowSuccessNumber";
-    Layout = "~/Views/Shared/LoginRegister.cshtml";
+    Layout = "~/Views/Shared/HteUser.cshtml";
 }
 
 <div class="contentBodyBox">
-    <br />
-<table class="table table-bordered">
-    <tr><th>ထီနံပါတ္​</th><th>ဆု</th></tr>
-    @{
-        foreach (DataRow rows in dtSuccessHteNumber.Rows)
-        {
-            <tr><td>@rows["No"]</td><td>@rows["Amount"]</td></tr>
+    @*<font color="#8B7D6B" class="zg">သင္​့ဆီတြင္​ရိွ​ေသာ (တစ္​ခုျခင္​း​) ပစၥည္​းမ်ား အားလံုးျဖစ္​သည္​။</font><br /><br />*@
+<table id="displayTable" class="table table-bordered">
+    <thead><tr><th><span class="zg">ထီနံပါတ္</span>​</th><th><span class="zg">ဆု</span></th></tr></thead>
+    <tbody>
+        @{
+            foreach (DataRow rows in dtSuccessHteNumber.Rows)
+            {
+                <tr><td><span class="zg">@rows["No"]</span></td><td><span class="zg">@rows["Amount"]</span></td></tr>
+            }
         }
-    }
+    </tbody>
 </table>
 </div>
 

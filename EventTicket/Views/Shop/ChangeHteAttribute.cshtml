@@ -1,0 +1,34 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    Base b = new Base();
+    ViewBag.Title = "Change Hte Attribute";
+    Layout = "~/Views/Shared/Shop.cshtml";
+    int ShopID = Convert.ToInt32(Session["CurrentUserID"]);
+    int CustomerID = Convert.ToInt32(Session["CustomerID"]);
+    DataTable dtHteNumber = new DataTable();
+    int HteAttributeID = Convert.ToInt32(ViewBag.HteAttributeID);
+    int HteTypeID = b.getIntByQuery("select * from HteAttribute where ID="+ HteAttributeID, "HteTypeID");
+}
+
+@using (Html.BeginForm("ProcessChangeHteAttribute", "Shop"))
+{
+    <div class="contentHeadBox">
+        <div class="box-body">
+        <div class="row">
+            <div class="col-md-3"><span class="zg"><input type="text" value="@b.getStringByQuery("select * from HteType where ID="+HteTypeID,"Name")" class="form-control" disabled /></span></div>
+            <div class="col-md-3"><input type="number" name="CostPrice" min="400" value="@b.getStringByQuery("select * from HteAttribute where ID="+ HteAttributeID, "CostPrice")" class="form-control"required/></div>
+            <div class="col-md-3"><input type="number" name="SellingPrice" min="450" value="@b.getStringByQuery("select * from HteAttribute where ID="+ HteAttributeID, "SellingPrice")" class="form-control"required/></div>
+            <div class="col-md-3"><input type="number" name="Quantity" min="1" value="@b.getStringByQuery("select * from HteAttribute where ID="+ HteAttributeID, "Quantity")" class="form-control"required/><span class="zg">(အ​ေစာင္​​ေရ)</span></div>
+         </div>
+            <br />
+            <center>
+          <div class="col-md-12">
+              <span class="zg"><input type="submit" class="btn btn-primary" value="ျပင္​မည္​" /></span>
+                  <input type="hidden" name="HteAttributeID" value="@HteAttributeID" />
+</div>
+            </center>
+        </div>
+
+    </div>
+                        }

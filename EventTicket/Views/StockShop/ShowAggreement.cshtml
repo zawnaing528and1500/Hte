@@ -24,7 +24,7 @@
             <td><b>Address</b></td><td><span class="zg">@db.getStringByQuery("select * from Shop where ID=" + ID, "Address")</span></td>
         </tr>
         <tr>
-            <td><b>Expiry Date</b></td><td><span class="zg">@db.getStringByQuery("select * from Login where AllID=" + ID, "ExpiryDate")</span></td>
+            <td><b>Expiry Date</b></td><td><span class="zg">@db.getStringByQuery("select * from Login where AllID=" + ID+" and AccessLevel=3", "ExpiryDate")</span></td>
         </tr>
     </table>
 </div>

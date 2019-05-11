@@ -21,6 +21,10 @@ namespace EventTicket.Controllers
         #region Pack Product
         public ActionResult NewProductPackingForm()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public ActionResult ProcessNewProductPackingForm()
@@ -53,6 +57,10 @@ namespace EventTicket.Controllers
         #region Unit Product
         public ActionResult NewProductUnitForm()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public ActionResult ProcessNewProductUnitForm()
@@ -88,6 +96,10 @@ namespace EventTicket.Controllers
         
         public ActionResult ReProductPackingForm()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public  ActionResult ProcessReProductPackingForm()
@@ -105,6 +117,10 @@ namespace EventTicket.Controllers
         #region Re Unit Product
         public ActionResult ReProductUnitForm()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public ActionResult ProcessReProductUnitForm()
@@ -122,6 +138,10 @@ namespace EventTicket.Controllers
         #region Out of Packing Product
         public ActionResult OutProductPackingForm()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public ActionResult ProcessOutProductPackingForm()
@@ -148,6 +168,10 @@ namespace EventTicket.Controllers
         #region Out of Unit Product
         public ActionResult OutProductUnitForm()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public ActionResult ProcessOutProductUnitForm()
@@ -174,22 +198,29 @@ namespace EventTicket.Controllers
         #region Lack both Packing and Unit Product
         public ActionResult LackPackingProduct()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public ActionResult LackUnitProduct()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         #endregion
 
-        public ActionResult ShowAggreement()
-        {
-            return View();
-        }
-
         #region See all packing product
         public ActionResult AllPackingProduct()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public ActionResult DeletePackingProduct()
@@ -204,6 +235,10 @@ namespace EventTicket.Controllers
         #region See all Unit Product
         public ActionResult AllUnitProduct()
         {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
             return View();
         }
         public ActionResult DeleteUnitProduct()
@@ -215,5 +250,13 @@ namespace EventTicket.Controllers
         }
         #endregion
 
+        public ActionResult ShowAggreement()
+        {
+            if (Session["CurrentUserID"] == null)
+            {
+                Response.Redirect("~/StockLogin/LoginForm");
+            }
+            return View();
+        }
     }
 }

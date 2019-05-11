@@ -1,0 +1,92 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    ViewBag.Title = "NewProductPackingForm";
+    Layout = "~/Views/Shared/Staff.cshtml";
+    DataTable todayStock = new DataTable();
+    Base db = new Base();
+    int StaffID = Convert.ToInt32(Session["CurrentUserID"]);
+}
+
+@using (Html.BeginForm("ProcessNewCustomerForm", "Staff"))
+{
+    <p class="zg">
+        <div class="contentHeadBox">
+            <font color="#8B7D6B" class="zg"><b>Customer</b> ထည္​့ရန္​​ ​ေအာက္​ပါတို႔ကို ျဖည္​့ပါ</font><br /><br />
+            <div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="zg"><input type="text" name="Name" placeholder="အမည္​ထည္​့ပါ" class="form-control" required /></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="zg"><input type="text" name="Address" placeholder="လိပ္​စာထည္​့ပါ" class="form-control" required /></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="zg"><input type="text" name="Phone" placeholder="ဖုန္​းနံပါတ္​ထည္​့ပါ" class="form-control" required /></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="zg"><input type="datetime" name="ExpiryDate" placeholder="သက္​တမ္​း ကုန္​ဆံုးရက္​" class="form-control" id="datepicker" /></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="zg"><input type="text" name="Username" placeholder="Username" class="form-control" id="datepicker" /></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="zg"><input type="text" name="Password" placeholder="Password​" class="form-control" id="datepicker" /></span>
+                    </div>
+                </div>
+                <br />
+                <center> <span class="zg"><input type="submit" class="btn btn-primary" value="ထည္​့မည္" /></span></center>
+            </div>
+
+            <div class="box-body">
+                <font color="#8B7D6B" class="zg"><b></b> ထည္​့ထား​ေသာ Customers ျဖစ္​သည္​​</font><br /><br />
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th style="width: 10px" class="hidecell">No</th>
+                            <th> <span class="zg">အမည္​</span></th>
+                            <th><span class="zg">Username</span></th>
+                            <th><span class="zg">Password</span></th>
+                            <th></th>
+
+                        </tr>
+                        @{
+                            int i = 1;
+                            todayStock = db.getAllByQuery("select * from Login where AllID in(select ShopID from StaffShop where StaffID=" + StaffID + ")");
+                            foreach (DataRow rows in todayStock.Rows)
+                            {
+
+                                int AllID = Convert.ToInt32(rows["AllID"]);
+                                <tr>
+                                    <td class="hidecell">@i</td>
+                                    <td>
+                                        <span class="zg">@db.getStringByQuery("select * from Shop where ID=" + AllID, "Name") </span>
+                                    </td>
+                                    <td><span class="zg"> @rows["Username"] </span></td>
+                                    <td><span class="zg"> @rows["Password"] </span></td>
+                                    <td><a onclick="CheckForDelete(@rows["AllID"])" class="label label-danger">X</a></td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+                <font color="#8B7D6B" class="zg"><font color="red">*</font>သံုးၿပီးသား <b>ဖုန္​းနံပတ္</b>​ သံုးမရပါ။ ရိွၿပီးသား <b>username</b> ထည္​့မရပါ။​</font>
+
+            </div>
+
+
+        </div>
+    </p>
+                            }
+<script>
+    function CheckForDelete(ID) {
+        var r = confirm("Are You Sure to Delete?");
+        if (r == true) {
+            location.href = 'http://18.136.70.159/Staff/DeleteCustomer?ID=' + ID;
+        } else {
+            return;
+        }
+    }
+</script>

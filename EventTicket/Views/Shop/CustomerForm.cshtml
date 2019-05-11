@@ -4,6 +4,8 @@
     Base b = new Base();
     ViewBag.Title = "CustomerForm";
     Layout = "~/Views/Shared/Shop.cshtml";
+
+    int ShopID = Convert.ToInt32(Session["CurrentUserID"]);
 }
 
 @using (Html.BeginForm("ProcessCustomerForm", "Shop"))

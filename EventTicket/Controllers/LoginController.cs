@@ -48,13 +48,21 @@ namespace EventTicket.Controllers
                 Session["CurrentUserID"] = UserID;
                 Session["LoginSession"] = null;
 
+                //Access Level 1 is CR Manager
+                //Access Level 2 is Hte Shop
+                //Access Level 3 is MyanmarItStar
+
                 if (AccessLevel == 1)
                 {
-                    return RedirectToAction("CustomerForm", "Shop");//Changes_second parioty
+                    return RedirectToAction("AddNewCustomerForm", "Staff");//Changes_second parioty
                 }
                 else if (AccessLevel == 2)
                 {
                     return RedirectToAction("CustomerForm", "Shop");//Most Important
+                }
+                else if (AccessLevel == 3)
+                {
+                    return RedirectToAction("AllShop", "MyanmarITStar");//Most Important
                 }
                 else
                 {

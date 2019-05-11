@@ -2,7 +2,7 @@
 @using System.Data;
 @{
     Base b = new Base();
-    ViewBag.Title = "CustomerForm";
+    ViewBag.Title = "Previous Month Customers";
     Layout = "~/Views/Shared/Shop.cshtml";
     int ShopID = Convert.ToInt32(Session["CurrentUserID"]);
     DataTable dtCustomer = new DataTable();
@@ -21,7 +21,7 @@
             @{
                 int i = 1;
                 int j = 1;
-                dtCustomer = b.getAllByQuery("select * from Customer where ShopID=" + ShopID + " and Date='" + DateTime.Now.ToString("MM.dd.yyyy") + "'");
+                dtCustomer = b.getAllByQuery("select * from Customer where ShopID=" + ShopID + "and MONTH(Date) < MONTH(GetDate())AND YEAR(Date) = YEAR(GetDate())");
                 foreach (DataRow rows in dtCustomer.Rows)
                 {
                     <tr>
@@ -48,4 +48,4 @@
             }
         </tbody>
     </table>
-    </div>
+</div>

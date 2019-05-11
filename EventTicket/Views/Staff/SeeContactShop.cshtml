@@ -1,0 +1,91 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    Base b = new Base();
+    ViewBag.Title = "CustomerForm";
+    Layout = "~/Views/Shared/Staff.cshtml";
+    DataTable dtContactShop = b.getAllByQuery("select * from ContactShop");
+
+}
+
+
+@using (Html.BeginForm("ProcessSeeContactShop", "Staff"))
+{
+    <p class="zg">
+        <div class="contentHeadBox">
+            <div class="row">
+                <div class="col-md-3">
+                    @*Fetch New Phone Number From ContactShop Table*@
+                    <select name="ID" class="form-control">
+                        @{
+                            foreach (DataRow rows in dtContactShop.Rows)
+                            {
+                                <option value="@rows["ID"]">@rows["Phone"]</option>
+                            }
+                        }
+                    </select>
+                  </div>
+                <div class="col-md-3">
+                    <span class="zg"><input type="text" name="Address" placeholder="Address" class="form-control" required /></span>
+                </div>
+                    <div class="col-md-2">
+                        <span class="zg"><input type="text" name="Description" placeholder="Description" class="form-control" required /></span>
+                    </div>
+                    <div class="col-md-2">
+                        <select name="Status" class="form-control" required>
+                            <option value="Accept">Accept</option>
+                            <option value="Reject">Reject</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <center> <span class="zg"><input type="submit" class="btn btn-primary" value="ထည္​့မည္" /></span></center>
+                    </div>
+                </div>
+        </div>
+    </p>
+}
+
+<div class="contentBodyBox">
+    <table id="displayTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 10px">No</th>
+                <th> <span class="zg">Name</span>​</th>
+                <th> <span class="zg">Phone</span></th>
+                <th> <span class="zg">Address</span></th>
+                <th> <span class="zg">Status</span></th>
+                <th> <span class="zg">Description</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (DataRow rows in dtContactShop.Rows)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>
+                            <span class="zg"> @rows["Name"]</span>
+                        </td>
+                        <td>
+                            <span class="zg">@rows["Phone"]</span>
+                        </td>
+
+                        <td>
+                            <span class="zg">@rows["Address"]</span>
+                        </td>
+
+                        <td>
+                            <span class="zg">@rows["Status"]</span>
+                        </td>
+
+                        <td>
+                            <span class="zg">@rows["Description"]</span>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
