@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "DeleteWrongHte";
+    Layout = "~/Views/Shared/Staff.cshtml";
+}
+
+@using (Html.BeginForm("ShowHteNumberToDelete", "Staff"))
+{
+    <div class="contentHeadBox">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6"><input type="text" name="CustomerID" class="form-control" placeholder="Enter Customer ID"/></div>
+                <div class="col-md-6"><input type="submit" value="SEE" class="btn btn-primary"/></div>
+            </div>
+        </div>
+    </div>
+}
+

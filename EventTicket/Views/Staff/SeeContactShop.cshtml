@@ -35,6 +35,8 @@
                         <select name="Status" class="form-control" required>
                             <option value="Accept">Accept</option>
                             <option value="Reject">Reject</option>
+                            <option value="Cant Connect">Can't Connect</option>
+                            <option value="Thinking">Thinking</option>
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -55,6 +57,7 @@
                 <th> <span class="zg">Address</span></th>
                 <th> <span class="zg">Status</span></th>
                 <th> <span class="zg">Description</span></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -70,17 +73,17 @@
                         <td>
                             <span class="zg">@rows["Phone"]</span>
                         </td>
-
                         <td>
                             <span class="zg">@rows["Address"]</span>
                         </td>
-
                         <td>
                             <span class="zg">@rows["Status"]</span>
                         </td>
-
                         <td>
                             <span class="zg">@rows["Description"]</span>
+                        </td>
+                        <td>
+                            <a onclick="CheckForDelete(@rows["ID"])" class="label label-danger">X</a>
                         </td>
                     </tr>
                     i++;
@@ -89,3 +92,13 @@
         </tbody>
     </table>
 </div>
+<script>
+    function CheckForDelete(ID) {
+        var r = confirm("Are You Sure to Delete?");
+        if (r == true) {
+            location.href = 'DeleteContactShop?ID=' + ID;
+        } else {
+            return;
+        }
+    }
+</script>

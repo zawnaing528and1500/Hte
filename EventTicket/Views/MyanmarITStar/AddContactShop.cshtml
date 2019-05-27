@@ -5,6 +5,7 @@
     ViewBag.Title = "CustomerForm";
     Layout = "~/Views/Shared/HteUser.cshtml";
     DataTable dtContactShop = new DataTable();
+    DataTable dtInternStaff = b.getAllByQuery("select * from InternStaff");
 }
 
 
@@ -13,16 +14,26 @@
     <p class="zg">
         <div class="contentHeadBox">
             <div class="row">
-                <div class="col-md-4">
-                    <span class="zg"><input type="text" name="Name" placeholder="အမည္​ျဖည္​့ပါ " class="form-control" required /></span>
+                <div class="col-md-3">
+                    <select name="InternStaffID" class="form-control">
+                        @{
+                            foreach (DataRow rows in dtInternStaff.Rows)
+                            {
+                                 <option value="@rows["ID"]">@rows["Name"]</option>
+                            }
+                        }
+                    </select>
                 </div>
-                <div class="col-md-4">
-                    <span class="zg"><input type="number" name="Phone" placeholder="ဖုန္​းနံပါတ္ျဖည္​့ပါ​" class="form-control" required /></span>
+                    <div class="col-md-3">
+                        <span class="zg"><input type="text" name="Name" placeholder="Enter Shop Name" class="form-control" required /></span>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="zg"><input type="number" name="Phone" placeholder="ဖုန္​းနံပါတ္ျဖည္​့ပါ​" class="form-control" required /></span>
+                    </div>
+                    <div class="col-md-3">
+                        <center> <span class="zg"><input type="submit" class="btn btn-primary" value="ထည္​့မည္" /></span></center>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <center> <span class="zg"><input type="submit" class="btn btn-primary" value="ထည္​့မည္" /></span></center>
-                 </div>
-            </div>
         </div>
     </p>
 }
@@ -34,6 +45,7 @@
                 <th style="width: 10px">No</th>
                 <th> <span class="zg">Name</span>​</th>
                 <th style="width: 40px"> <span class="zg">Phone</span></th>
+                <th style="width: 40px"> <span class="zg">Satff ID</span></th>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +61,9 @@
                         </td>
                         <td>
                             <span class="zg">@rows["Phone"]</span>
+                        </td>
+                        <td>
+                            <span class="zg">@rows["InternStaffID"]</span>
                         </td>
                     </tr>
                                         i++;

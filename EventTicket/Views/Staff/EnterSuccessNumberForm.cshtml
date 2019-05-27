@@ -1,0 +1,53 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    Base b = new Base();
+    DataTable dtSuccessHteNumber = new DataTable();
+    dtSuccessHteNumber = b.getAllByQuery("select * from Success");
+    ViewBag.Title = "DeleteWrongHte";
+    Layout = "~/Views/Shared/Staff.cshtml";
+}
+
+@using (Html.BeginForm("ProcessEnterSuccessNumberForm", "Staff"))
+{
+    <div class="contentHeadBox">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4"><input type="text" name="No" class="form-control" placeholder="Enter Success Number" /></div>
+                <div class="col-md-4"><input type="text" name="Amount" class="form-control" placeholder="Enter Amount" /></div>
+                <div class="col-md-4"><input type="submit" value="SAVE" class="btn btn-primary" /></div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="contentBodyBox">
+ <table id="displayTable" class="table table-bordered">
+        <thead><tr><th><span class="zg">ထီနံပါတ္</span>​</th><th><span class="zg">ဆု</span></th><th></th></tr></thead>
+        <tbody>
+            @{
+                foreach (DataRow rows in dtSuccessHteNumber.Rows)
+                {
+                    
+           <tr><td><span class="zg">@rows["No"]</span></td><td><span class="zg">@rows["Amount"]</span></td>
+            <td>
+               <a onclick="CheckForDelete(@rows["ID"])" class="label label-danger">X</a>
+            </td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function CheckForDelete(ID) {
+        var r = confirm("Are You Sure to Delete?");
+        if (r == true) {
+            location.href = 'DeleteSuccessNumber?ID=' + ID;
+        } else {
+            return;
+        }
+    }
+</script>
+

@@ -1,0 +1,51 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    Base b = new Base();
+    ViewBag.Title = "ChooseSaleType";
+    Layout = "~/Views/Shared/Shop.cshtml";
+    int ShopID = Convert.ToInt32(Session["CurrentUserID"]);
+}
+
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@b.getIntByQuery("select * from HteAttribute where ShopID= " + ShopID + " and HteTypeID=2", "Quantity")</h3>
+                <p><span class="zg">လက္​လီ</span></p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-bar-chart"></i>
+            </div>
+            <a href="/Shop/ProcessChooseSaleTypeForDifferentHte?HteTypeID=2" class="small-box-footer">​<span class="zg">ေရာင္​းမည္​ </span><i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>@b.getIntByQuery("select * from HteAttribute where ShopID= " + ShopID + " and HteTypeID=1", "Quantity")<sup style="font-size: 20px"></sup></h3>
+                <p><span class="zg">လက္​ကား</span></p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-bar-chart"></i>
+            </div>
+            <a href="/Shop/ProcessChooseSaleTypeForDifferentHte?HteTypeID=1" class="small-box-footer"><span class="zg">​ေရာင္​းမည္​</span> <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>@b.getIntTotalByQuery("select * from HteNumber where ShopID=" + ShopID + " and MONTH(Date) = MONTH(GetDate())AND YEAR(Date) = YEAR(GetDate())", "Profit")</h3>
+                <p>Sale Force (MMK)</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-pie-chart"></i>
+            </div>
+            <a href="/Shop/SaleForce" class="small-box-footer">More info<i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>

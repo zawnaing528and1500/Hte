@@ -58,7 +58,7 @@ namespace EventTicket.Controllers
                 }
                 else if (AccessLevel == 2)
                 {
-                    return RedirectToAction("CustomerForm", "Shop");//Most Important
+                    return RedirectToAction("CheckHoleSaleForDifferent", "Shop");//Most Important
                 }
                 else if (AccessLevel == 3)
                 {

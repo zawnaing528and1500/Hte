@@ -1,0 +1,32 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    ViewBag.Title = "ShowHteNumberToDelete";
+    Layout = "~/Views/Shared/Staff.cshtml";
+    int CustomerID = Convert.ToInt32(ViewBag.CustomerID);
+    Base b = new Base();
+    DataTable dtHteNumber = b.getAllByQuery("select * from HteNumber where CustomerID=" + CustomerID);
+}
+
+<div class="contentBodyBox">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr><td>Customer Name</td><td>Hte Number</td><td></td></tr>
+                <tr>
+                <td>@b.getStringByQuery("select * from Customer where ID="+CustomerID,"Name")</td>
+                <td>
+                    @{ 
+                        foreach(DataRow rows in dtHteNumber.Rows)
+                        {
+                            @rows["No"];<br />
+                                
+                        }
+                    }
+                </td>
+                <td><a href="~/Staff/DeleteCustomer?CustomerID=@CustomerID"><img src="~/Image/Icon/delete.png" /></a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,9 @@ using System.Net.Mail;
 using EventTicket.App_Code;
 using System.Data;
 using System.Text;
+//using OfficeOpenXml;
+
+
 
 namespace EventTicket.Controllers
 {
@@ -19,6 +22,14 @@ namespace EventTicket.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public void ReplaceLastCharacter()
+        {
+            string str = "ကပ118560";
+            int i = 1;
+            //Replace 1 at 0
+            str = str.Remove(str.Length - 1, 1) + i;
+            Debug.WriteLine(str);
         }
         public ActionResult PrintCharacter()
         {
@@ -94,6 +105,39 @@ namespace EventTicket.Controllers
             Response.Flush();
             Response.End();
         }
+        public ActionResult ExcelUploadForm()
+        {
+            return View();
+        }
+        //public ActionResult ProcessExcelUploadForm(FormCollection formCollection)
+        //{
+        //    string[] HteNumber = new string[] { };
+        //    if (Request != null)
+        //    {
+        //        HttpPostedFileBase file = Request.Files["UploadedFile"];
+        //        if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+        //        {
+        //            string fileName = file.FileName;
+        //            string fileContentType = file.ContentType;
+        //            byte[] fileBytes = new byte[file.ContentLength];
+        //            var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+        //            using (var package = new ExcelPackage(file.InputStream))
+        //            {
+        //                var currentSheet = package.Workbook.Worksheets;
+        //                var workSheet = currentSheet.First();
+        //                var noOfCol = workSheet.Dimension.End.Column;
+        //                var noOfRow = workSheet.Dimension.End.Row;
+
+        //                for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+        //                {
+        //                    HteNumber = HteNumber.Concat(new string[] { workSheet.Cells[rowIterator, 1].Value.ToString()}).ToArray();
+        //                    HteNumber = HteNumber.Concat(new string[] { workSheet.Cells[rowIterator, 1].Value.ToString(workSheet.Cells[rowIterator, 2].Value.ToString()) }).ToArray();
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return View();
+        //}
 
     }
 }

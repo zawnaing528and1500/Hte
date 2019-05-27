@@ -13,11 +13,11 @@
 @using (Html.BeginForm("ProcessHteNumberForm", "Shop"))
 {
     <div class="contentHeadBox">
-        <font color="#8B7D6B" class="zg">ဝယ္​ယူသူ၏ ထီနံပါတ္​မ်ားထည္​့ပါ</font><br /><br />
+        <font color="#8B7D6B" class="zg">ဝယ္​ယူသူ၏ ထီနံပါတ္​ ထည္​့ပါ</font><br /><br />
 
         <div class="row">
             <div class="col-md-12">
-                <span class="zg"><input type="text" name="No" placeholder="ထီနံပတ္ ထည့္ရန္" class="form-control" required /></span>
+                <span class="zg"><input type="text" maxlength="8" name="No" placeholder="ထီနံပါတ္​ထည္​့ရန္​(အကၡရာနွင္​့ဂဏန္​း)" class="form-control" required /></span>
             </div>
         </div>
         <br />
@@ -70,6 +70,5 @@
                 </tbody>
             </table>
         </div>
-
     </div>
                         }

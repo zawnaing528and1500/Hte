@@ -208,10 +208,8 @@
     <Compile Include="App_Code\DBBase.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MyanmarITStarController.cs" />
-    <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
-    <Compile Include="Controllers\StockShopController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -416,17 +414,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Owner.cshtml" />
     <Content Include="Views\Shared\Test\Index.cshtml" />
-    <Content Include="Views\Owner\Index.cshtml" />
-    <Content Include="Views\Owner\setEventOrgAccount.cshtml" />
     <Content Include="Views\Shared\LoginRegister.cshtml" />
     <Content Include="Views\Login\LoginForm.cshtml" />
     <Content Include="Views\Login\CustomerRegistrationForm.cshtml" />
     <Content Include="Views\Shared\PublicUser.cshtml" />
     <Content Include="Views\Shared\Test\SendSeatInfo.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Owner\addEventOrgAccount.cshtml" />
-    <Content Include="Views\Owner\SeeAppliedAccount.cshtml" />
-    <Content Include="Views\Owner\AddShopForm.cshtml" />
     <Content Include="Views\Shared\Shop.cshtml" />
     <Content Include="Views\Shop\CustomerForm.cshtml" />
     <Content Include="Views\Shop\HteNumberForm.cshtml" />
@@ -435,17 +428,6 @@
     <Content Include="Views\Shop\ViewMonthlyCustomerHteNumber.cshtml" />
     <Content Include="Views\Shop\ShowAggreement.cshtml" />
     <Content Include="Views\Shop\ShowSuccessNumber.cshtml" />
-    <Content Include="Views\StockShop\NewProductPackingForm.cshtml" />
-    <Content Include="Views\StockShop\NewProductUnitForm.cshtml" />
-    <Content Include="Views\StockShop\ReProductPackingForm.cshtml" />
-    <Content Include="Views\StockShop\ReProductUnitForm.cshtml" />
-    <Content Include="Views\StockShop\OutProductPackingForm.cshtml" />
-    <Content Include="Views\StockShop\OutProductUnitForm.cshtml" />
-    <Content Include="Views\StockShop\LackPackingProduct.cshtml" />
-    <Content Include="Views\StockShop\LackUnitProduct.cshtml" />
-    <Content Include="Views\StockShop\ShowAggreement.cshtml" />
-    <Content Include="Views\StockShop\AllPackingProduct.cshtml" />
-    <Content Include="Views\StockShop\AllUnitProduct.cshtml" />
     <Content Include="Views\Shop\HteAttribute.cshtml" />
     <Content Include="Views\Shop\ChangeHteAttribute.cshtml" />
     <Content Include="Views\Shop\SaleForce.cshtml" />
@@ -456,6 +438,18 @@
     <Content Include="Views\Shared\MyanmarITStar.cshtml" />
     <Content Include="Views\MyanmarITStar\AddContactShop.cshtml" />
     <Content Include="Views\Staff\SeeContactShop.cshtml" />
+    <Content Include="Views\Shop\DifferentHteNumberForm.cshtml" />
+    <Content Include="Views\Shop\ChooseSaleType.cshtml" />
+    <Content Include="Views\Shop\MixHteNumberForm.cshtml" />
+    <Content Include="Views\Shop\ChooseSaleTypeForMix.cshtml" />
+    <Content Include="Views\MyanmarITStar\AllShop.cshtml" />
+    <Content Include="Views\Test\ExcelUploadForm.cshtml" />
+    <Content Include="Views\Shop\DifferentHteRecordForm.cshtml" />
+    <Content Include="Views\Shop\DifferentHteRecordSellForm.cshtml" />
+    <Content Include="Views\Shop\ChooseSaleTypeForDifferentHte.cshtml" />
+    <Content Include="Views\Staff\SeeHteNumberToDelete.cshtml" />
+    <Content Include="Views\Staff\ShowHteNumberToDelete.cshtml" />
+    <Content Include="Views\Staff\EnterSuccessNumberForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

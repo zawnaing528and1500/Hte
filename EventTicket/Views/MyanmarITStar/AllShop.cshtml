@@ -1,0 +1,93 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    Base b = new Base();
+    ViewBag.Title = "CustomerForm";
+    Layout = "~/Views/Shared/MyanmarItStar.cshtml";
+    DataTable dtShop = b.getAllByQuery("select * from Shop");
+
+}
+
+
+@using (Html.BeginForm("ProcessAllShop", "Staff"))
+{
+
+                            }
+
+<div class="contentBodyBox">
+    <table id="displayTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 10px">No</th>
+                <th style="width: 10px">ShopID</th>
+                <th> <span class="zg">Name</span>​</th>
+                <th> <span class="zg">Phone</span></th>
+                <th> <span class="zg">Address</span></th>
+                <th> <span class="zg">Username</span></th>
+                <th> <span class="zg">Password</span></th>
+                <th> <span class="zg">Is Hole Sale</span></th>
+                <th> <span class="zg">Is Test</span></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;string Test = "";
+                foreach (DataRow rows in dtShop.Rows)
+                {
+                    if(Convert.ToBoolean(rows["isTest"]) == true)
+                    {
+                        Test = "Test";
+                    }
+                    else
+                    {
+                        Test = "Real";
+                    }
+                    <tr>
+                        <td>@i</td>
+                        <td>
+                            <span class="zg"> @rows["ID"]</span>
+                        </td>
+                        <td>
+                            <span class="zg"> @rows["Name"]</span>
+                        </td>
+                        <td>
+                            <span class="zg">@rows["Phone"]</span>
+                        </td>
+                        <td>
+                            <span class="zg">@rows["Address"]</span>
+                        </td>
+
+                        <td>
+                            <span class="zg">@b.getStringByQuery("select * from Login where AllID="+rows["ID"]+" and AccessLevel=2","Username")</span>
+                        </td>
+
+                        <td>
+                            <span class="zg">@b.getStringByQuery("select * from Login where AllID="+rows["ID"]+" and AccessLevel=2","Password")</span>
+                        </td>
+                        <td>
+                            <span class="zg">@rows["isHoleSale"]</span>
+                        </td>
+                        <td>
+                            <span class="zg">@Test</span>
+                        </td>
+                        <td>
+                            <a onclick="CheckForDelete(@rows["ID"])" class="label label-danger">X</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function CheckForDelete(ID) {
+        var r = confirm("Are You Sure to Delete?");
+        if (r == true) {
+            location.href = 'DeleteShop?ID=' + ID;
+        } else {
+            return;
+        }
+    }
+</script>

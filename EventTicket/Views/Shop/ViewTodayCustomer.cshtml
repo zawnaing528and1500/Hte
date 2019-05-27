@@ -12,7 +12,8 @@
     <table id="displayTable" class="table table-bordered">
         <thead>
             <tr>
-                <th style="width: 10px">No</th>
+                @*<th style="width: 10px">No</th>*@
+                <th style="width: 10px">ID</th>
                 <th> <span class="zg">ထီထိုးသူ</span>​</th>
                 <th style="width: 40px"> <span class="zg">ထီနံပါတ္​</span></th>
             </tr>
@@ -25,7 +26,8 @@
                 foreach (DataRow rows in dtCustomer.Rows)
                 {
                     <tr>
-                        <td>@i</td>
+                        @*<td>@i</td>*@
+                        <td>@rows["ID"]</td>
                         <td>
                             <span class="zg"> @rows["Name"]</span>
                         </td>

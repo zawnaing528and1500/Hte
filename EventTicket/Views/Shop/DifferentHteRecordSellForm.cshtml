@@ -1,0 +1,50 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    Base b = new Base();
+    ViewBag.Title = "CustomerForm";
+    Layout = "~/Views/Shared/Shop.cshtml";
+    int Type = Convert.ToInt32(ViewBag.Type);
+    int ShopID = Convert.ToInt32(Session["CurrentUserID"]);
+    DataTable dtHteNumber = new DataTable();
+    DataTable dtDifferentHteNo = b.getAllByQuery(" SELECT distinct DifferentHteID FROM DifferentHteNo WHERE ShopID = "+ShopID+"GROUP BY DifferentHteID Having COUNT(*)="+Type);
+
+}
+<!--Backend Form-->
+<div>
+    @using (Html.BeginForm("ProcessDifferentHteRecordSellForm", "Shop"))
+    {
+        <div class="contentHeadBox">
+            <div class="zg">
+                <div class="row">
+                    <div class="col-md-12">
+                        <center><font color="#8B7D6B" class="zg">@Type မ်ိဳး  @Type​ ေစာင္​​</font></center> <br /><br />
+                        <center>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <select id="letter" name="DifferentHteID" class="form-control select2" style="width: 100%;" required autofocus="autofocus" class="form-control">
+                                        @{
+                                            foreach (DataRow rows in dtDifferentHteNo.Rows)
+                                            {
+                                                <option value="@rows["DifferentHteID"]">@b.getStringByQuery("select * from DifferentHte where ID=" + rows["DifferentHteID"], "StartNo")-@b.getStringByQuery("select * from DifferentHte where ID=" + rows["DifferentHteID"], "EndNo")</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </div>
+                                <div class="col-md-3"><span class="zg"><input type="text" name="Name" placeholder="အမည္​​​​" class="form-control" required /></span></div>
+                                <div class="col-md-3"><span class="zg"><input type="text" name="Phone" placeholder="ဖုန္​း​​​" class="form-control" required /></span></div>
+                                <div class="col-md-3"><span class="zg"><input type="text" name="Address" placeholder="လိပ္​စာ​​​" class="form-control" required /></span></div>
+                            </div>
+                        </center>
+                        <br />
+                        <center><span class="zg"><input type="submit" value=" ေရာင္ း" class="btn btn-primary" /></span></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+

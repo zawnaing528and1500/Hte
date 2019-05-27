@@ -1,0 +1,220 @@
+﻿@using EventTicket.App_Code;
+@using System.Data;
+@{
+    Base b = new Base();
+    ViewBag.Title = "CustomerForm";
+    Layout = "~/Views/Shared/Shop.cshtml";
+    int ShopID = Convert.ToInt32(Session["CurrentUserID"]);
+    DataTable dtHteNumber = new DataTable();
+    DataTable dtLetter = b.getAllByQuery("select * from Letter");
+}
+
+<!--Front-End Form-->
+<div class="contentHeadBox">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <center>
+                    <label>
+                        <input type="radio" name="type" class="minimal" value="pair" checked>
+                        <span class="zg">အမႊာ</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="type" class="minimal" value="special">
+                        <span class="zg">ရွယ္​</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="type" class="minimal" value="couple">
+                        <span class="zg">မဂၤလာစံုတြဲ</span>
+                    </label>
+                </center>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table align="center">
+                    <tr>
+                        <td>
+                            <select id="letter" class="form-control select2" style="width: 100%;" required autofocus="autofocus" class="form-control" style="width: 80px">
+                                @{
+                                    foreach (DataRow rows in dtLetter.Rows)
+                                    {
+                                        <option value="@rows["Name"]">@rows["Name"]</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <span class="zg"><input type="text" id="firstHteNumber" placeholder="ထီနံပါတ္​ထည္​့ပါ"  maxlength="6" class="form-control"/></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><span class="zg"><input type="number" id="hteCount" placeholder="အ​ေစာင္​​ေရ" max="50" class="form-control"/></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    <center><b><span id="error" style="color:palevioletred" class="zg"></span></b></center>
+    <br />
+    <center> <span class="zg"><input type="button" class="btn btn-primary" value="ၾကည္​့" onclick="SelectedDeselect()"/></span></center>
+    </div>
+
+<!--Place to display Selectded Hte Number as Table-->
+<p id="SelectedHteNumber"></p>
+<br />
+
+<!--Backend Form-->
+<div>
+    @using (Html.BeginForm("ProcessDifferentHteNumberForm", "Shop"))
+    {
+        <div class="contentHeadBox">
+            <input type="hidden" id="HSelectedHteNumber" name="SelectedHteNumber" />
+            <div class="zg">
+                <div class="row">
+                    <div class="col-md-12">
+                        <font color="#8B7D6B" class="zg">ထီထိုးသူ၏ အခ်က္​အလက္​မ်ားထည္​့ပါ</font><br /><br />
+                        <center>
+                            <div class="row">
+                                <div class="col-md-4"><span class="zg"><input type="text" name="Name" placeholder="အမည္​​​​" class="form-control" required/></span></div>
+                                <div class="col-md-4"><span class="zg"><input type="text" name="Phone" placeholder="ဖုန္​း​​​" class="form-control" required/></span></div>
+                                <div class="col-md-4"><span class="zg"><input type="text" name="Address" placeholder="လိပ္​စာ​​​" class="form-control" required/></span></div>
+                            </div>
+                        </center>
+                        <br />
+                        <center><span class="zg"><input type="submit" value= "​ေရာင္​း" class="btn btn-primary" /></span></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<!--Get Letter. That will be putting back to JS Array-->
+<p id="letterid" style="opacity:0;">
+    @{
+        foreach (DataRow row in dtLetter.Rows)
+        {
+            string Name = row["Name"].ToString();
+            Name = Name + ",";
+            @Name
+        }
+        foreach (DataRow row in dtLetter.Rows)
+        {
+            string Name = row["Name"].ToString();
+            Name = Name + ",";
+            @Name
+        }
+    }
+</p>
+
+
+<script>
+    var Letter = new Array();
+    var SelectedHteNumber = new Array();
+    var Type;
+
+    //InnerText to Array
+    $(document).ready(function () {
+        var letter = document.getElementById("letterid").innerText;
+        Letter = letter.split(",");
+        Letter.splice((Letter.length) - 1, 1);
+    })
+
+    //Select and Deselecting Hte Number
+    function SelectedDeselect() {
+        var FirstHteNumber = document.getElementById("firstHteNumber").value;
+        var HteCount = document.getElementById("hteCount").value;
+
+        var e = document.getElementById("letter");
+        var SelectedIndex = e.selectedIndex
+        var SelectedLetter = e.options[e.selectedIndex].value;
+
+        var radios = document.getElementsByName('type');
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                Type = radios[i].value;
+                break;
+            }
+        }
+        if (isNaN(FirstHteNumber)) {
+            document.getElementById("error").innerText = "ထီနံပါတ္​ကို ဂဏန္​းထည္​့ပါ";
+        }
+        else {
+            if (FirstHteNumber.length != 6) {
+                document.getElementById("error").innerText = "ဂဏန္​း ​ေျခာက္​လံုးမျပည္​့ပါ";
+            }
+            else {
+                if (HteCount == 8) {
+                    document.getElementById("error").innerText = "8 ​ေစာင္​ထီမရိွပါ";
+                }
+                else {
+                    if (HteCount > 50) {
+                        document.getElementById("error").innerText = "ထီ​ေစာင္​​ေရ ၅၀ ထက္​မ​ေက်ာ္​ရ";
+                    }
+                    else {
+                        document.getElementById("error").innerText = "";
+                        //SelectedIndex, SelectedLetter
+                        //FirstHteNumber, HteCount
+                        HteCount = parseInt(HteCount);
+                        SelectedIndex = parseInt(SelectedIndex);
+
+                        //alert(HteCount);
+                        //alert(SelectedIndex);
+                        //alert(Letter[SelectedIndex]);
+                        //alert(Type)
+
+                        if (Type == "pair") {
+                            SelectedHteNumber = [];
+                            for (var i = 0; i < HteCount; i++) {
+                                var HteNo = Letter[SelectedIndex] + FirstHteNumber;
+                                SelectedHteNumber.push(HteNo);
+                                SelectedIndex = SelectedIndex + 1;
+                            }
+                            ShowSelectedHteNumber();
+                        }
+                        else if (Type == "special") {
+                            SelectedHteNumber = [];
+                            FirstHteNumber = parseInt(FirstHteNumber);
+                            for (var i = 0; i < HteCount; i++) {
+                                var HteNo = Letter[SelectedIndex] + FirstHteNumber;
+                                SelectedHteNumber.push(HteNo);
+                                FirstHteNumber = FirstHteNumber + 1;
+                            }
+                            ShowSelectedHteNumber();
+                        }
+                        else if (Type == "couple") {
+                            SelectedHteNumber = [];
+                            for (var i = 0; i < HteCount; i++) {
+                                var HteNo = Letter[SelectedIndex] + FirstHteNumber;
+                                SelectedHteNumber.push(HteNo);
+                                SelectedIndex = SelectedIndex + 1;
+                            }
+                            ShowSelectedHteNumber();
+                        }
+                    }
+                } 
+            }
+        }
+    }
+
+    function ShowSelectedHteNumber() {
+        if (SelectedHteNumber.length > 0) {
+            var table = "<div class='contentBodyBox'><div class='box-body'><table class='table table-bordered' style='background-color:#F6F9ED';><tr><th><span class='zg'>စဥ္​</span></th><th><span class='zg'>ထီနံပါတ္​</span></th></tr>";
+            for (var i = 0 ; i < SelectedHteNumber.length ; i++) {
+                var no = i + 1;
+                table = table + "<tr><td>" + no + "</td><td><span class='zg'>" + SelectedHteNumber[i] + "</span></td></tr>";
+            }
+
+            table = table + "</table></div></div>";
+
+            document.getElementById("SelectedHteNumber").innerHTML = table;
+            document.getElementById("HSelectedHteNumber").value = SelectedHteNumber.toString();
+            //alert(document.getElementById("HSelectedHteNumber").value)
+             }
+        else {
+            document.getElementById("SelectedHteNumber").innerHTML = "";
+        }
+    }
+</script>
